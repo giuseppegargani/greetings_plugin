@@ -1,6 +1,27 @@
+/*
+    - documentazione ufficiale: https://docs.gradle.org/current/userguide/publishing_gradle_plugins.html
+        c'è anche la documentazione su come pubblicare su Maven remoto
+        Si richiede che le due chiavi API siano consultabili quando viene pubblicato
+
+    - GRADLE PROPERTIES
+        https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties
+
+    - SI POSSONO CIFRARE LE CREDENZIALI!!!
+
+    - MAVEN PUBLISH SI APPLIC ANCHE A MAVEN LOCALE!!!!!!
+ */
+
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     id 'java-gradle-plugin'
+    id 'maven-publish'
+    id "com.gradle.plugin-publish" version "1.0.0-rc-2"
+}
+
+pluginBundle {
+    website = 'https://github.com/giuseppegargani/greetings_plugin'
+    vcsUrl = 'https://github.com/giuseppegargani/greetings_plugin'
+    tags = ['example', 'try', 'prova', 'tentativo']
 }
 
 repositories {
@@ -14,11 +35,16 @@ dependencies {
     testImplementation 'junit:junit:4.13'
 }
 
+group = 'com.barsali.plugin'
+version = '0.5'
+
 gradlePlugin {
     // Define the plugin
     plugins {
         greeting {
-            id = 'com.example.plugin.greeting'
+            id = 'com.barsali.plugin.greeting'
+            displayName = 'barsaligreetings'
+            description = 'FIRST CUSTOM PLUGIN'
             implementationClass = 'com.example.plugin.GreetingPlugin'
         }
     }
