@@ -9,9 +9,11 @@
     - SI POSSONO CIFRARE LE CREDENZIALI!!!
 
     - MAVEN PUBLISH SI APPLIC ANCHE A MAVEN LOCALE!!!!!!
+
  */
 
 plugins {
+    id 'groovy'
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     id 'java-gradle-plugin'
     id 'maven-publish'
@@ -27,7 +29,12 @@ pluginBundle {
 repositories {
     // Use Maven Central for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
+    google()
     mavenCentral()
+    //per caricamento artifactId locale per plugin
+    mavenLocal()
+    gradlePluginPortal()
+    jcenter() // Warning: this repository is going to shut down soon
 }
 
 dependencies {
@@ -35,8 +42,9 @@ dependencies {
     testImplementation 'junit:junit:4.13'
 }
 
+//Questo e' il gruppo!!!
 group = 'com.barsali.plugin'
-version = '0.5'
+version = '0.32'
 
 gradlePlugin {
     // Define the plugin
@@ -45,7 +53,7 @@ gradlePlugin {
             id = 'com.barsali.plugin.greeting'
             displayName = 'barsaligreetings'
             description = 'FIRST CUSTOM PLUGIN'
-            implementationClass = 'com.example.plugin.GreetingPlugin'
+            implementationClass = 'com.example.plugin.GreetingPlug'
         }
     }
 }
@@ -65,3 +73,11 @@ tasks.check.configure {
     // Run the functional tests as part of `check`
     dependsOn(functionalTestTask)
 }
+task wrapper(type: Wrapper){
+    gradleVersion = '7.2'
+}
+task prepareKotlinBuildScriptModel {
+
+}
+
+
